@@ -1,12 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <StartupObject>FormAppBlazorServer.Program</StartupObject>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>FormAppBlazorServer</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
 
 </Project>
