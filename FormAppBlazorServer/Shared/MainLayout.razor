@@ -1,6 +1,21 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
 
+<a class="ig-skip" href="#main">Aller au contenu</a>
 <Header />
 <main id="main">@Body</main>
 <Footer />
 
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("refreshAos");
+        }
+        catch (JSException)
+        {
+            // Script pas encore disponible au premier rendu.
+        }
+    }
+}

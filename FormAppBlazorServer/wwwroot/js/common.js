@@ -14,7 +14,7 @@ function JSAlert() {
 }
 
 function JSGeneratePDF() {
-    const element = document.getElementById("element-toexportpdf");
+    const element = document.getElementById("element-toexportpdf") || document.getElementById("element-toexportpdf");
     var opt = {
         margin: 1,
         filename: 'programme.pdf',
@@ -41,7 +41,7 @@ function JSGeneratePDF() {
 }
 
 function JSGeneratePlanningPDF() {
-    const element = document.getElementById("element-toexportpdf");
+    const element = document.getElementById("element-toexportpdf") || document.getElementById("element-toexportpdf");
     var opt = {
         margin: 1,
         filename: 'calendrier.pdf',

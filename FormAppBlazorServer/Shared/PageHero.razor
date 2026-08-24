@@ -1,0 +1,21 @@
+<div class="ig-page-hero">
+    <div class="container">
+        @if (!string.IsNullOrWhiteSpace(Eyebrow))
+        {
+            <p class="ig-eyebrow">@Eyebrow</p>
+        }
+        <h1>@Title</h1>
+        @if (!string.IsNullOrWhiteSpace(Subtitle))
+        {
+            <p>@Subtitle</p>
+        }
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Subtitle { get; set; }
+    [Parameter] public string? Eyebrow { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

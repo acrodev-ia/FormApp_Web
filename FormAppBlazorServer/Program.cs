@@ -1,26 +1,35 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FormAppBlazorServer.Configuration;
+using FormAppBlazorServer.Data;
 
-namespace FormAppBlazorServer
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<SiteOptions>(
+    builder.Configuration.GetSection(SiteOptions.SectionName));
+
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<JsonDataLoader>();
+builder.Services.AddSingleton<CatalogueService>();
+builder.Services.AddSingleton<PlanningService>();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+    app.UseHttpsRedirection();
+}
+
+app.UseStaticFiles();
+app.UseRouting();
+
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
+app.Run();

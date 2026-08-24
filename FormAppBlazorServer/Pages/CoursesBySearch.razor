@@ -1,61 +1,44 @@
 ﻿@page "/coursesBySearch"
 @page "/coursesBySearch/{SearchWord}"
 @inject CatalogueService CatalogueService
-<div class="container" data-aos="fade-up">
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs">
-        <div class="container">
-            <h2>Catalogues des formations</h2>
-            <p>Liste des programmes disponibles.</p>
-        </div>
-    </div><!-- End Breadcrumbs -->
-    <!-- ======= Courses Section ======= -->
-    <section id="courses" class="courses">
-        <div class="container" data-aos="fade-up">
 
-            <div class="row" data-aos="zoom-in" data-aos-delay="100">
-                @foreach (var catalogue in catalogues)
+<PageHero Eyebrow="Recherche" Title="Résultats" Subtitle="@Subtitle" />
+<section class="ig-section">
+    <div class="container">
+        @if (results is null)
+        {
+            <p>Recherche en cours…</p>
+        }
+        else if (results.Count == 0)
+        {
+            <p>Aucun programme ne correspond à « @SearchWord ».</p>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var result in results)
                 {
-                    foreach (var theme in catalogue.themes)
-                    {
-                        foreach (var famille in theme.Familles)
-                        {
-                            foreach (var stage in famille.Stages)
-                            {
-                                if (stage.Intitule.ToLower().Contains(SearchWord) || stage.Intitule2.ToLower().Contains(SearchWord))
-                                {
-                                    nbProgramme++;
-                                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                                      <CourseComponent theme="theme" famille="famille" stage="stage"></CourseComponent>
-                                    </div>
-                                }
-
-                            }
-                        }
-                    }
+                    <div class="col-lg-4 col-md-6">
+                        <CourseComponent theme="result.Theme" famille="result.Famille" stage="result.Stage" />
+                    </div>
                 }
             </div>
-        </div>
-    </section><!-- End Courses Section -->
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs">
-        <div class="container">
-            <p><b>@nbProgramme</b> programmes disponibles avec le critère de recherche : <b>@SearchWord</b></p>
-        </div>
-    </div><!-- End Breadcrumbs -->
-</div>
+            <p class="mt-4 mb-0"><strong>@results.Count</strong> programme(s) pour le critère <strong>@SearchWord</strong>.</p>
+        }
+    </div>
+</section>
 
 @code {
+    [Parameter] public string? SearchWord { get; set; }
 
-    [Parameter]
-    public string SearchWord { get; set; }
-    private int nbProgramme;
+    private IReadOnlyList<CourseRecord>? results;
 
-    IEnumerable<Rootobjectcatalogue> catalogues;
+    private string Subtitle => string.IsNullOrWhiteSpace(SearchWord)
+        ? "Saisissez un mot-clé dans la barre de recherche."
+        : $"Programmes correspondant à « {SearchWord} ».";
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        catalogues = await CatalogueService.GetCatalogueAsync();
-        nbProgramme = 0;
+        results = await CatalogueService.SearchAsync(SearchWord);
     }
 }

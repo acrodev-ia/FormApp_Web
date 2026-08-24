@@ -1,41 +1,36 @@
-﻿<div class="course-item">
-
+﻿<div class="course-item h-100">
     <div class="course-content">
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
             <h4>@famille.FamilleLibelle</h4>
-            @if (@stage.CoutStagiaire != "0,00 €")
+            @if (!string.IsNullOrWhiteSpace(stage.CoutStagiaire) && stage.CoutStagiaire != "0,00 €")
             {
                 <p class="price">@stage.CoutStagiaire HT</p>
             }
         </div>
-
-        <h3><NavLink href="@($"course/{@stage.id}")" rel="noopener">@stage.Intitule</NavLink></h3>
-        <p>@((MarkupString)@stage.Intitule2)</p>
+        <h3>
+            <NavLink href="@($"course/{stage.id}")">@stage.Intitule</NavLink>
+        </h3>
+        <p>@((MarkupString)(stage.Intitule2 ?? string.Empty))</p>
         <div class="trainer d-flex justify-content-between align-items-center">
             <div class="trainer-profile d-flex align-items-center">
-                <img src="@($"../ig_images/themes/{theme.IdTheme.ToUpper()}.png")" onerror="if (this.src != '../ig_images/themes/empty.png') this.src = '../ig_images/themes/empty.png'" class="img-fluid" alt="...">
-                <span>@($"{@stage.Code}")</span>
+                <img src="@($"ig_images/themes/{theme.IdTheme.ToUpperInvariant()}.png")"
+                     onerror="this.onerror=null;this.src='ig_images/themes/empty.png';"
+                     alt="" />
+                <span>@stage.Code</span>
             </div>
             <div class="trainer-rank d-flex align-items-center">
-                <i class="bx bx-time"></i>&nbsp;@if (@stage.DureeJour == "1")
-                {
-                    @($" {@stage.DureeJour} jour")
-                    ;
-                }
-                else
-                {
-                    @($" {@stage.DureeJour} jours")
-                    ;
-                }
+                <i class="bx bx-time" aria-hidden="true"></i>
+                <span>&nbsp;@DurationLabel</span>
             </div>
         </div>
     </div>
 </div>
+
 @code {
-    [Parameter]
-    public StageDetail stage { get; set; }
-    [Parameter]
-    public StageTheme theme { get; set; }
-    [Parameter]
-    public StageFamille famille { get; set; }
+    [Parameter, EditorRequired] public StageDetail stage { get; set; } = default!;
+    [Parameter, EditorRequired] public StageTheme theme { get; set; } = default!;
+    [Parameter, EditorRequired] public StageFamille famille { get; set; } = default!;
+
+    private string DurationLabel
+        => stage.DureeJour == "1" ? "1 jour" : $"{stage.DureeJour} jours";
 }
