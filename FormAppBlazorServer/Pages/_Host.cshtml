@@ -1,0 +1,62 @@
+﻿@page "/"
+@namespace FormAppBlazorServer.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IG Formation</title>
+    <base href="~/" />
+    <!-- Favicons -->
+    <link href="~/favicon.ico" rel="icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="FormAppBlazorServer.styles.css" rel="stylesheet" />
+    <link href="error.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link media="print" href="~/assets/css/print.css" rel="stylesheet"/>
+
+</head>
+<body>
+    <component type="typeof(App)" render-mode="Server" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    @*<div id="preloader"></div>*@
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @*<script src="assets/vendor/php-email-form/validate.js"></script>*@
+    <!-- Ne pas activer le script suivant à ce niveau -->
+    @*<script src="assets/vendor/purecounter/purecounter.js"></script>*@
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="~/js/common.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿/*--------------------------------------------------------------
+# Elements à ne pas imprimer
+--------------------------------------------------------------*/
+header, footer, aside, nav, form, iframe, .btn, .menu, .hero, .adslot {
+    display: none;
+}
+
+body {
+    zoom: 50%
+}
+/*--------------------------------------------------------------
+# Mention supplémentaire fin de document
+--------------------------------------------------------------*/
+main::after {
+    content: "IGFORMATION  - ZAE CAHORS SUD - 46230 FONTANES - Tel : 05.65.53.62.06 - contact@igformation.fr";
+    display: block;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

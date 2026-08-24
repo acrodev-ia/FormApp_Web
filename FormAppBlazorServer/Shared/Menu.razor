@@ -1,0 +1,102 @@
+﻿@inherits LayoutComponentBase
+@inject IConfiguration Configuration
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+<!-- Uncomment below if you prefer to use an image logo -->
+@*<a href="index.html" class="logo me-auto"><img src="ig_images/ig-footer-logo.svg" height="80" width="80"></a>*@
+<h1 class="logo me-auto"><a style="cursor:pointer" @onclick=@( () => HandleClick("Index"))>@Configuration.GetSection("MyApplicationConfiguration")["MyTitle"]</a></h1>
+
+<nav id="navbar" class="navbar order-last order-lg-0">
+    <ul>
+        <li class="nav-item px-3" style="cursor:pointer">
+            <NavLink class=@GetActive("Index") @onclick=@( () => HandleClick("Index"))>
+                <span class="oi oi-plus" aria-hidden="true"></span>Accueil
+            </NavLink>
+        </li>
+          <li class="nav-item px-3" style="cursor:pointer">
+            <NavLink class=@GetActive("Courses") @onclick=@( () => HandleClick("Courses"))>
+                <span class="oi oi-plus" aria-hidden="true"></span>Nos Formations
+            </NavLink>
+        </li>
+        <li class="nav-item px-3" style="cursor:pointer">
+            <NavLink class=@GetActive("Calendrier") @onclick=@( () => HandleClick("Calendrier"))>
+                <span class="oi oi-plus" aria-hidden="true"></span>Calendrier
+            </NavLink>
+        </li>
+        <li class="nav-item px-3" style="cursor:pointer">
+            <NavLink class=@GetActive("Infos") @onclick=@( () => HandleClick("Infos"))>
+                <span class="oi oi-plus" aria-hidden="true"></span>Nous connaître
+            </NavLink>
+        </li>
+        <li class="nav-item px-3" style="cursor:pointer">
+            <NavLink class=@GetActive("Contact") @onclick=@( () => HandleClick("Contact"))>
+                <span class="oi oi-plus" aria-hidden="true"></span>Nous contacter
+            </NavLink>
+        </li>
+     
+        <li class="nav-item px-3">
+            <div class="input-group">
+                <input class="form-control border-end-0 border" type="search" @bind-value="@SearchWord">
+                <span class="input-group-append">
+                    <button class="btn btn-outline-secondary bg-white border-start-0 @*border-bottom-0*@ border ms-n5" type="button" @onclick="SearchCourse">
+                        <i class="bi-search"></i>
+                    </button>
+                </span>
+            </div>
+        </li>
+        <li class="nav-item px-3" style="cursor:pointer">
+            <NavLink class=@GetActive("Index") @onclick=@( () => GotoApp())>
+                <span class="oi oi-plus" aria-hidden="true"></span>Connexion
+            </NavLink>
+        </li>
+    </ul>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+</nav><!-- .navbar -->
+
+@*<a class="get-started-btn" style="cursor:pointer" @onclick=@( () => HandleClick("Courses"))>Nos formations</a>*@
+
+@code {
+    private string SearchWord;
+    private void SearchCourse()
+    {
+        if (string.IsNullOrEmpty(SearchWord))
+        {
+            NavigationManager.NavigateTo("/Courses/", true);
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/coursesBySearch/" + SearchWord.ToLower(), true);
+        }
+    }
+    // On force le reload pour fermer le toggle navbar en mode mobile
+    private void HandleClick(string pageToGo)
+    {
+        NavigationManager.NavigateTo(pageToGo, true);
+    }
+
+    private string GetActive(string pageName)
+    {
+        if (NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToLower() == pageName.ToLower())
+        {
+            return "nav-link active";
+        }
+        if (NavigationManager.ToBaseRelativePath(NavigationManager.Uri) == "" && pageName == "Index")
+        {
+            return "nav-link active";
+        }
+        return "nav-link";
+    }
+
+    private void GotoApp()
+    {
+        JSRuntime.InvokeAsync<object>("open", "https://app.igformation.fr", "_blank");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/js/menu.js");
+        }
+    }
+}

@@ -1,0 +1,62 @@
+﻿@inject CatalogueService CatalogueService
+
+<div class="container" data-aos="fade-up">
+
+    @*    <div class="section-title">
+        <h2>Catalogue</h2>
+        <p>Nos thèmatiques</p>
+        </div>
+    *@
+    @if (catalogues == null)
+    {
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    }
+    else
+    {
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+            @foreach (var catalogue in catalogues)
+            {
+                foreach (var theme in catalogue.themes)
+                {
+                    if (@theme.IdTheme == ThemeId)
+                    {
+                        @if (theme.Familles.Count() > 1)
+                        {
+                            foreach (var famille in theme.Familles)
+                            {
+                                <div class="col-lg-3 col-md-4">
+                                    <div class="icon-box" style="height:80px; margin:5px">
+                                        <i class="ri-store-line" style="color: #ffbb2c;"></i>
+                                        <h3 style="margin-left:10px"><NavLink href="@($"courses/{@theme.IdTheme}/{@famille.FamilleLibelle}")">@famille.FamilleLibelle</NavLink></h3>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                }
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string ThemeId { get; set; } = "";
+
+    IEnumerable<Rootobjectcatalogue>? catalogues;
+
+    protected override async Task OnInitializedAsync()
+    {
+        catalogues = await CatalogueService.GetCatalogueAsync();
+        StateHasChanged();
+    }
+
+    Courses courses = new Courses();
+
+    public class Courses
+    {
+        public string ThemeID { get; set; } = "";
+    }
+}

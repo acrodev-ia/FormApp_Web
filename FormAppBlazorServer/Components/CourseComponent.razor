@@ -1,0 +1,41 @@
+﻿<div class="course-item">
+
+    <div class="course-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4>@famille.FamilleLibelle</h4>
+            @if (@stage.CoutStagiaire != "0,00 €")
+            {
+                <p class="price">@stage.CoutStagiaire HT</p>
+            }
+        </div>
+
+        <h3><NavLink href="@($"course/{@stage.id}")" rel="noopener">@stage.Intitule</NavLink></h3>
+        <p>@((MarkupString)@stage.Intitule2)</p>
+        <div class="trainer d-flex justify-content-between align-items-center">
+            <div class="trainer-profile d-flex align-items-center">
+                <img src="@($"../ig_images/themes/{theme.IdTheme.ToUpper()}.png")" onerror="if (this.src != '../ig_images/themes/empty.png') this.src = '../ig_images/themes/empty.png'" class="img-fluid" alt="...">
+                <span>@($"{@stage.Code}")</span>
+            </div>
+            <div class="trainer-rank d-flex align-items-center">
+                <i class="bx bx-time"></i>&nbsp;@if (@stage.DureeJour == "1")
+                {
+                    @($" {@stage.DureeJour} jour")
+                    ;
+                }
+                else
+                {
+                    @($" {@stage.DureeJour} jours")
+                    ;
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public StageDetail stage { get; set; }
+    [Parameter]
+    public StageTheme theme { get; set; }
+    [Parameter]
+    public StageFamille famille { get; set; }
+}

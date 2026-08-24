@@ -1,0 +1,61 @@
+﻿@page "/coursesBySearch"
+@page "/coursesBySearch/{SearchWord}"
+@inject CatalogueService CatalogueService
+<div class="container" data-aos="fade-up">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h2>Catalogues des formations</h2>
+            <p>Liste des programmes disponibles.</p>
+        </div>
+    </div><!-- End Breadcrumbs -->
+    <!-- ======= Courses Section ======= -->
+    <section id="courses" class="courses">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                @foreach (var catalogue in catalogues)
+                {
+                    foreach (var theme in catalogue.themes)
+                    {
+                        foreach (var famille in theme.Familles)
+                        {
+                            foreach (var stage in famille.Stages)
+                            {
+                                if (stage.Intitule.ToLower().Contains(SearchWord) || stage.Intitule2.ToLower().Contains(SearchWord))
+                                {
+                                    nbProgramme++;
+                                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                                      <CourseComponent theme="theme" famille="famille" stage="stage"></CourseComponent>
+                                    </div>
+                                }
+
+                            }
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </section><!-- End Courses Section -->
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <p><b>@nbProgramme</b> programmes disponibles avec le critère de recherche : <b>@SearchWord</b></p>
+        </div>
+    </div><!-- End Breadcrumbs -->
+</div>
+
+@code {
+
+    [Parameter]
+    public string SearchWord { get; set; }
+    private int nbProgramme;
+
+    IEnumerable<Rootobjectcatalogue> catalogues;
+
+    protected override async Task OnInitializedAsync()
+    {
+        catalogues = await CatalogueService.GetCatalogueAsync();
+        nbProgramme = 0;
+    }
+}

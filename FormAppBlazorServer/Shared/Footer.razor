@@ -1,0 +1,78 @@
+﻿@inject IConfiguration Configuration
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <img src="@Configuration.GetSection("MyApplicationConfiguration")["MyLogoSvg"]" height="160" width="160" class="img-fluid" alt="logo">
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h3>@Configuration.GetSection("MyApplicationConfiguration")["MyTitle"]</h3>
+                    <p>
+                        255, rue Pièce Grande<br>
+                        ZAE CAHORS SUD <br>
+                        46230 FONTANES <br><br>
+                        <strong>Tel: </strong>@Configuration.GetSection("MyApplicationConfiguration")["MyPhone"]<br>
+                        <strong>Email: </strong><a href="mailto:@Configuration.GetSection("MyApplicationConfiguration")["MyMail"]"><p>@Configuration.GetSection("MyApplicationConfiguration")["MyMail"]</p></a><br>
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Liens Utiles</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="../ig_files/inscription.pdf" target="_blank" rel="noopener">Inscriptions</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="../ig_files/cgv.pdf" target="_blank" rel="noopener">CGV</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="../ig_files/politiqueconfidentialite.pdf" target="_blank" rel="noopener">RGPD</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/mentions">Mentions légales</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="https://www.moncompteformation.gouv.fr/espace-prive/html/#/formation/recherche/results?q=%7B%22ou%22:%7B%22modality%22:%22EN_CENTRE_MIXTE%22,%22type%22:%22CP%22,%22ville%22:%7B%22nom%22:%22FONTANES%22,%22codePostal%22:%2246230%22,%22coordonnee%22:%7B%22longitude%22:1.5736765,%22latitude%22:44.331192%7D%7D%7D,%22sort%22:%22SCORE%22,%22debutPagination%22:1,%22nombreOccurences%22:10,%22displayName%22:%22excel%22,%22filters%22:%7B%22price%22:%7B%22minValue%22:0,%22maxValue%22:10000,%22step%22:500,%22value%22:10000%7D,%22distance%22:%7B%22minValue%22:0,%22maxValue%22:1000,%22defaultValue%22:500,%22step%22:20,%22value%22:500%7D%7D,%22where%22:%7B%22area%22:0,%22aroundMe%22:false,%22modality%22:%221%22,%22value%22:%7B%22city%22:%22FONTANES%22,%22postalCode%22:%2246230%22,%22coordinates%22:%7B%22longitude%22:1.5736765,%22latitude%22:44.331192%7D%7D%7D,%22_what%22:%22excel%22,%22quoi%22:%22CACES%22,%22quoiReferentiel%22:null,%22distance%22:500,%22conformiteReglementaire%22:null,%22durationHours%22:null,%22endDate%22:null,%22evaluation%22:null,%22niveauSortie%22:null,%22nomOrganisme%22:%22IMBERT%20GAELLE%20FORMATION%22,%22prix%22:null,%22rythme%22:null,%22startDate%22:null%7D" target="_blank">Mon Compte Formation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+        <div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+                &copy; Copyright <strong><span>2026</span></strong>.
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
+                Designed by Acrodev with <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            @*            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>*@
+            <a href="https://www.facebook.com/ig.formation.cahors" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+            @*            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>*@
+            <a href="https://www.linkedin.com/company/ig-formation-cahors/?viewAsMember=true" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+<a href="@TopPage.ToLower()" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+@code {
+    public string TopPage { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        // PageType = (this.Body.Target as RouteView)?.RouteData.PageType;
+        TopPage = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).ToString().Replace(NavigationManager.ToAbsoluteUri(NavigationManager.BaseUri).ToString(), "");
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/js/backtotop.js");
+        }
+    }
+}

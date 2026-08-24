@@ -1,0 +1,110 @@
+﻿@page "/courses"
+@page "/courses/{ThemeID}"
+@page "/courses/{ThemeID}/{Famille}"
+@using FormAppBlazorServer.Data
+@inject CatalogueService CatalogueService
+@inject IJSRuntime JSRuntime
+<div class="container" data-aos="fade-up">
+
+    <!-- ======= Features Section ======= -->
+    @if (string.IsNullOrEmpty(@ThemeID))
+    {
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs">
+            <div class="container">
+                <h2>Catalogue des formations</h2>
+                <p>Liste des programmes disponibles.</p>
+            </div>
+        </div>
+
+        <!-- End Breadcrumbs -->
+        <section id="features" class="features">
+            <ThemesListComponent></ThemesListComponent>
+        </section>
+    }
+    else
+    {
+        <!-- ======= Courses Section ======= -->
+        <section id="courses" class="courses">
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                @foreach (var catalogue in catalogues)
+                {
+                    foreach (var theme in catalogue.themes)
+                    {
+                        if (string.IsNullOrEmpty(@ThemeID) || @theme.IdTheme == ThemeID)
+                        {
+                            <div class="breadcrumbs">
+                                <div class="container">
+                                    <h2>@theme.ThemeLibelle</h2>
+                                    <p>@((MarkupString)@theme.ThemeIntitule).</p>
+                                </div>
+                            </div>
+
+                            <section id="familles" class="features">
+                                <FamillesListComponent ThemeId="@ThemeID"></FamillesListComponent>
+                            </section>
+                            <!-- End Breadcrumbs -->
+                            foreach (var famille in theme.Familles)
+                            {
+                                if (string.IsNullOrEmpty(@Famille) || @famille.FamilleLibelle == Famille)
+                                {
+                                    foreach (var stage in famille.Stages)
+                                    {
+                                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" style="padding-bottom:5px">
+                                            <CourseComponent theme="theme" famille="famille" stage="stage"></CourseComponent>
+                                        </div>
+                                    }
+                                }
+                            }
+                            if (!string.IsNullOrEmpty(@theme.ThemeBottom))
+                            {
+                                <div>
+                                    <p class="course-content">@((MarkupString)@theme.ThemeBottom)</p>
+                                </div>
+                            }
+                        }
+                    }
+                }
+            </div>
+            <div class="text-center">
+                <button style="outline:none; border:0" class="get-started-btn" @onclick="BackPreviousPage">Retour</button>
+            </div>
+        </section>
+
+        <!-- End Courses Section -->
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public string ThemeID { get; set; }
+
+    [Parameter]
+    public string Famille { get; set; }
+    IEnumerable<Rootobjectcatalogue> catalogues;
+
+    private int currentCount = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        catalogues = await CatalogueService.GetCatalogueAsync();
+    }
+    protected string GetImageCount()
+    {
+        if (currentCount < 20)
+        {
+            currentCount++;
+        }
+        else
+        {
+            currentCount = 1;
+        }
+        var nombre = currentCount.ToString().PadLeft(2, '0');
+        return nombre;
+    }
+    private async Task BackPreviousPage()
+    {
+        await JSRuntime.InvokeVoidAsync("JSBackPreviousPage");
+    }
+}

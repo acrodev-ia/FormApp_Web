@@ -1,0 +1,260 @@
+﻿@page "/course/{CourseID}"
+@inject CatalogueService CatalogueService
+@inject PlanningService PlanningService
+@inject IJSRuntime JSRuntime
+
+<div class="container" data-aos="fade-up" id="element-toexportpdf">
+    @foreach (var catalogue in catalogues)
+    {
+        foreach (var theme in catalogue.themes)
+        {
+            foreach (var famille in theme.Familles)
+            {
+                foreach (var stage in famille.Stages)
+                {
+
+                    if (!string.IsNullOrEmpty(CourseID) && stage.id == CourseID)
+                    {
+                        <!-- ======= Breadcrumbs ======= -->
+                        <div class="breadcrumbs" data-aos="fade-in">
+                            <div class="container">
+                                <h2>@stage.Intitule</h2>
+                                <p>@((MarkupString)@stage.Intitule2)</p>
+                                @{
+                                    nbProgramme++;
+                                }
+                            </div>
+                        </div>
+
+                        <!-- End Breadcrumbs -->
+                        <!-- ======= Cource Details Section ======= -->
+                        <section id="course-details" class="course-details">
+                            <div class="container" data-aos="fade-up">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <h3>Objectifs</h3>
+                                        <ul>
+                                            @if (!string.IsNullOrEmpty(@stage.Objectif1))
+                                            {
+                                                <li>@((MarkupString)@stage.Objectif1)</li>
+                                            }
+                                            @if (!string.IsNullOrEmpty(@stage.Objectif2))
+                                            {
+                                                <li>@((MarkupString)@stage.Objectif2)</li>
+                                            }
+                                            @if (!string.IsNullOrEmpty(@stage.Objectif3))
+                                            {
+                                                <li>@((MarkupString)@stage.Objectif3)</li>
+                                            }
+                                            @if (!string.IsNullOrEmpty(@stage.Objectif4))
+                                            {
+                                                <li>@((MarkupString)@stage.Objectif4)</li>
+                                            }
+                                        </ul>
+                                        <h3>Public</h3>
+                                        <div>@((MarkupString)@stage.Publictype)</div>
+                                        <h3>Formateur</h3>
+                                        <div>@((MarkupString)@stage.Formateur)</div>
+                                        <h3>Pédagogie</h3>
+                                        <div>@((MarkupString)@stage.Pedagogie)</div>
+                                        <h3>Evaluation</h3>
+                                        <div>@((MarkupString)@stage.Evaluation)</div>
+                                        <h3>Résultats</h3>
+                                        <div>@((MarkupString)@stage.Resultat)</div>
+                                        <div>
+                                            <h3>Contenu</h3>
+                                            @((MarkupString)@stage.Contenu)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        @if (!string.IsNullOrEmpty(@stage.DureeJour))
+                                        {
+                                            <div class="course-info d-flex justify-content-between align-items-center">
+                                                <h5>Durée (nb jours)</h5>
+                                                <p>@stage.DureeJour</p>
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(@stage.DureeNote))
+                                        {
+                                            <div class="course-info d-flex justify-content-between align-items-center">
+                                                <h5>Durée (infos)</h5>
+                                                <p>@((MarkupString)@stage.DureeNote)</p>
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(@stage.DureeNote))
+                                        {
+                                            <div class="course-info d-flex justify-content-between align-items-center">
+                                                <h5>Tarif HT (/ personne)</h5>
+                                                <p> @stage.CoutStagiaire</p>
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(@stage.CoutNote))
+                                        {
+                                            <div class="course-info d-flex justify-content-between align-items-center">
+                                                <h5>Tarif (infos)</h5>
+                                                <p>@((MarkupString)@stage.CoutNote)</p>
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(@stage.NbPlacesMax) && Int16.Parse(@stage.NbPlacesMax) > 0)
+                                        {
+                                            <div class="course-info d-flex justify-content-between align-items-center">
+                                                <h5>Nb places max</h5>
+                                                <p>@((MarkupString)@stage.NbPlacesMax)</p>
+                                            </div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(@stage.Code))
+                                        {
+                                            <div class="course-info d-flex justify-content-between align-items-center">
+                                                <h5>Référence</h5>
+                                                <p>@((MarkupString)@stage.Code)</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @foreach (var planning in plannings)
+                                    {
+                                        <h3>Dates</h3>
+                                        <table class="table table-bordered table-responsive table-striped table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Lieu</th>
+                                                    <th>Durée</th>
+                                                    <th>Infos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in planning.Themes)
+                                                {
+                                                    @foreach (var datedetail in item.Dates)
+                                                    {
+                                                        if (datedetail.Id == CourseID)
+                                                        {
+                                                            nbDates++;
+                                                            <tr>
+                                                                @if (string.IsNullOrEmpty(datedetail.Url))
+                                                                {
+                                                                    <td>@datedetail.Date</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td><NavLink href="@datedetail.Url" target="_blank" rel="noopener">@datedetail.Date</NavLink></td>
+                                                                }
+                                                                <td>@datedetail.Lieu</td>
+                                                                <td>@datedetail.DureePrix</td>
+                                                                <td>
+                                                                    <span>
+                                                                        @((MarkupString)@datedetail.Intitule2)
+                                                                        @*<ul>
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_Objectif))
+                                                                            {
+                                                                            <li>Objectif : @((MarkupString)@datedetail.Edof_Objectif)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_EtatRecrutement))
+                                                                            {
+                                                                            <li>Etat recrutement : @((MarkupString)@datedetail.Edof_EtatRecrutement)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_Parcours))
+                                                                            {
+                                                                            <li>Parcours : @((MarkupString)@datedetail.Edof_Parcours)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_ModaliteAdmission))
+                                                                            {
+                                                                            <li>Modalités d'admission : @((MarkupString)@datedetail.Edof_ModaliteAdmission)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_Langue))
+                                                                            {
+                                                                            <li>Langue : @((MarkupString)@datedetail.Edof_Langue)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_ModaliteEnseignement))
+                                                                            {
+                                                                            <li>Modalités d'enseignement : @((MarkupString)@datedetail.Edof_ModaliteEnseignement)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_ModaliteEntreesSorties))
+                                                                            {
+                                                                            <li>Modalités entrées / sorties : @((MarkupString)@datedetail.Edof_ModaliteEntreesSorties)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_TauxTva))
+                                                                            {
+                                                                            <li>Taux TVA : @((MarkupString)@datedetail.Edof_TauxTva)</li>
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(@datedetail.Edof_RythmeFormation))
+                                                                            {
+                                                                            <li>Rythme de formation : @((MarkupString)@datedetail.Edof_RythmeFormation)</li>
+                                                                            }
+                                                                            </ul>*@
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                }
+                                                @if (nbDates == 0)
+                                                {
+                                                    <tr>
+                                                        <th>FORMATION NON ENCORE PROGRAMMEE</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- End Cource Details Section -->
+                    }
+                }
+            }
+        }
+        <!-- ======= Breadcrumbs ======= -->
+        @if (nbProgramme == 0)
+        {
+            <div class="breadcrumbs" data-aos="fade-in">
+                <div class="container">
+                    <h2>PROGRAMME NON DISPONIBLE SUR LE SITE</h2>
+                    <p>CONTACTEZ-NOUS POUR PLUS D'INFOS</p>
+                </div>
+            </div>
+
+            <!-- End Breadcrumbs -->
+        }
+    }
+</div>
+<div class="text-center" style="margin-bottom:10px">
+     <button style="outline:none; border:0" class="get-started-btn" @onclick="PrintAll">Imprimer</button>
+     <button style="outline:none; border:0" class="get-started-btn" @onclick="DownloadPDF">Télécharger</button>
+     <button style="outline:none; border:0" class="get-started-btn" @onclick="BackPreviousPage">Retour</button>
+</div>
+@code {
+    [Parameter]
+    public string CourseID { get; set; }
+    IEnumerable<Rootobjectcatalogue> catalogues;
+    IEnumerable<Rootobjectplanning> plannings;
+
+    private int nbProgramme = 0;
+    private int nbDates = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        catalogues = await CatalogueService.GetCatalogueAsync();
+        plannings = await PlanningService.GetPlanningAsync();
+    }
+
+    private async Task PrintAll()
+    {
+        await JSRuntime.InvokeVoidAsync("JSPrintPlanning");
+    }
+    private async Task BackPreviousPage()
+    {
+        await JSRuntime.InvokeVoidAsync("JSBackPreviousPage");
+    }
+    private async Task DownloadPDF()
+    {
+        await JSRuntime.InvokeVoidAsync("JSGeneratePDF");
+    }
+}

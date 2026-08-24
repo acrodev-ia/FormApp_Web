@@ -1,0 +1,193 @@
+[
+  {
+    "items": [
+      {
+        "theme": "344 - Sécurite des biens et des personnes, police, surveillance",
+        "stage": [
+          {
+            "id": "def7ab07-1e96-490e-972f-72a36a7aa2e0",
+            "texte": "SAUVETEUR SECOURISTE DU TRAVAIL - Maintien et Actualisation des compétences",
+            "date": "M.A.C. S.S.T.",
+            "lieu": "CAHORS",
+            "nbplaces": 10,
+            "dureeprix": "36 eiu",
+            "intitule2": "dsjdmkfmkfùmpkf",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": "En journée"
+          }
+        ]
+      },
+      {
+        "theme": "BASE DE DONNEES",
+        "stage": [
+          {
+            "id": "f41f3a22-2be3-4ece-9c2e-b11e64bf0b88",
+            "texte": "Perfectionnement aux bases de données et au langage SQL",
+            "date": "Septembre / Octobre",
+            "lieu": "AGEN",
+            "nbplaces": 8,
+            "dureeprix": "3 jours",
+            "intitule2": "Contactez nous !",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": null
+          },
+          {
+            "id": "f962590c-84b3-48d0-a0f0-74f8fa6a1a19",
+            "texte": "Introduction aux bases de données et au langage SQL",
+            "date": "3 juillet 2021",
+            "lieu": "NANTES",
+            "nbplaces": 2,
+            "dureeprix": "6 jours",
+            "intitule2": "Contactez-nous !",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": "En journée"
+          },
+          {
+            "id": "f962590c-84b3-48d0-a0f0-74f8fa6a1a19",
+            "texte": "Introduction aux bases de données et au langage SQL",
+            "date": "3 septembre 2021",
+            "lieu": "PARIS",
+            "nbplaces": 0,
+            "dureeprix": "4 jours",
+            "intitule2": "Contactez-nous.",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": "En journée"
+          },
+          {
+            "id": "f962590c-84b3-48d0-a0f0-74f8fa6a1a19",
+            "texte": "Introduction aux bases de données et au langage SQL",
+            "date": "28 juin 2021",
+            "lieu": "TOULOUSE",
+            "nbplaces": 5,
+            "dureeprix": "5 jours",
+            "intitule2": "Cette formation permet d'acquérir les connaissances et compétences pour écrire au mieux des requêtes SQL, en allant des éléments de base du langage SQL, jusqu'aux fonctionnalités avancées permettant l'écriture optimisée de requêtes SQL. Elle peut être réalisée sous MySQL, Oracle, PostgreSQL ou SQL Server.",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": "En journée"
+          }
+        ]
+      },
+      {
+        "theme": "CLOUD COMPUTING",
+        "stage": [
+          {
+            "id": "90afe41b-9cc4-42ab-9ff7-24f752588a45",
+            "texte": "Microsoft Azure – Développer des solutions",
+            "date": "07 juin 2021",
+            "lieu": "CAHORS",
+            "nbplaces": 20,
+            "dureeprix": "3 jours 25 euros HT",
+            "intitule2": "Cette formation destinée aux développeurs, \r\npermet d’acquérir les connaissances et compétences nécessaires pour concevoir des applications et services qui exploitent les fonctionnalités IaaS et PaaS de Microsoft Azure, telles que : \r\nle stockage, \r\nla sécurité, les communications, les performances, l'instrumentation, les journaux, l'intégration et la gestion des APIs et les architectures de messagerie.",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": "En journée"
+          }
+        ]
+      },
+      {
+        "theme": "SYSTEMES",
+        "stage": [
+          {
+            "id": "7d6063d5-5d9f-4cae-8561-d88fddf6021d",
+            "texte": "Les fondamentaux d’une infrastructure Windows Server",
+            "date": "15 octobre 2021",
+            "lieu": "FONTANES",
+            "nbplaces": 10,
+            "dureeprix": "Contactez-nous !",
+            "intitule2": "Cette formation permet aux participants d'acquérir les connaissances et compétences requises pour mettre en place une infrastructure Windows Server.\r\nLes participants aborderont l'architecture, les technologies, les besoins en sécurité et les meilleures pratiques telles que les compétences d'administration et les technologies comme l'installation, la configuration, la maintenance. L'Active Directory, le DNS et le stockage sont également abordés.",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": "En journée"
+          },
+          {
+            "id": "099ea1d3-a3ae-4cd9-a6b4-25a4a62aa0ca",
+            "texte": "Virtualisation du poste de travail Windows et des applications",
+            "date": "3eme trimestre",
+            "lieu": "LYON ou NICE",
+            "nbplaces": 10,
+            "dureeprix": "2 Jours",
+            "intitule2": "Cette formation a été conçue pour faire découvrir l’ensemble des technologies de virtualisation du poste de travail Microsoft.\r\nCette formation permet d’améliorer les connaissances des participants sur Microsoft Application Virtualization (App-v) Service Pack 2 (SP2), Microsoft User Experience Virtualization (UE-V), le Virtual Desktop Infrastructure (VDI) de Windows Server 2012 R2. Les participants apprennent à gérer, surveiller, supporter et dépanner les différentes solutions de virtualisation du bureau basées sur Windows.\r\n\r\nLa formation compare les différentes technologies avec des études de cas et meilleures pratiques.",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": null
+          }
+        ]
+      },
+      {
+        "theme": "TOTO",
+        "stage": [
+          {
+            "id": "4a910005-7878-4ea7-9e4b-91688c0948bc",
+            "texte": "ENTRETIEN PROFESSIONNEL",
+            "date": "ENTRETIEN PROFESSIONNEL",
+            "lieu": "CAHORS",
+            "nbplaces": 0,
+            "dureeprix": "3 jours 25 euros HT",
+            "intitule2": "Mener et réussir l’entretien professionnel de ses collaborateurs",
+            "edof_objectif": "Perfectionnement, élargissement des compétences",
+            "edof_etatRecrutement": "Fermé",
+            "edof_parcours": "96213 - collectif",
+            "edof_modaliteAdmission": "Admission sans disposition particulière",
+            "edof_langue": "Français",
+            "edof_modaliteEnseignement": "Formation entièrement présentielle",
+            "edof_modaliteEntreesSorties": "Entrées/sorties à dates fixes",
+            "edof_tauxTva": "Soumis au taux de 20 %",
+            "edof_rythmeFormation": "En journée"
+          }
+        ]
+      }
+    ]
+  }
+]

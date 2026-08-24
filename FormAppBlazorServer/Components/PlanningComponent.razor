@@ -1,0 +1,56 @@
+﻿@inject PlanningService PlanningService
+<div class="planning">
+    @if (plannings == null)
+    {
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
+        </div>
+    }
+    else
+    {
+        @foreach (var planning in plannings)
+        {
+            @foreach (var item in planning.Themes)
+            {
+                <h3>@item.ThemeLibelle.ToString()</h3>
+                <table class="table table-bordered table-responsive table-striped table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th class="col-6">Formations</th>
+                            <th class="col-3">Date</th>
+                            <th class="col-2">Lieu</th>
+                            <th class="col-1">Durée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var stage in item.Dates)
+                        {
+                        <tr>
+                            <td><NavLink href="@($"course/{stage.Id}")" target="_blank" rel="noopener">@stage.Texte</NavLink></td>
+                            @if (string.IsNullOrEmpty(stage.Url))
+                            {
+                                <td>@stage.Date</td>
+                            }
+                            else
+                            {
+                                <td><NavLink href="@stage.Url" target="_blank" rel="noopener">@stage.Date</NavLink></td>
+                            }
+                            <td>@stage.Lieu</td>
+                            <td>@stage.DureePrix</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+    }
+</div>
+
+@code {
+    IEnumerable<Rootobjectplanning> plannings;
+
+    protected override async Task OnInitializedAsync()
+    {
+        plannings = await PlanningService.GetPlanningAsync();
+    }
+}

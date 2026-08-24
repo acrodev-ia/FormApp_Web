@@ -1,0 +1,52 @@
+﻿@using FormAppBlazorServer.Data
+@inject CatalogueService CatalogueService
+
+<div class="container" data-aos="fade-up">
+
+    @*    <div class="section-title">
+        <h2>Catalogue</h2>
+        <p>Nos thèmatiques</p>
+        </div>
+    *@
+    @if (catalogues == null)
+    {
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    }
+    else
+    {
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+            @foreach (var catalogue in catalogues)
+            {
+                @foreach (var theme in catalogue.themes)
+                {
+                    <div class="col-lg-3 col-md-4">
+                        <div class="icon-box" style="height:80px; margin:5px">
+                            <img src="@($"../ig_images/themes/{theme.IdTheme.ToUpper()}.png")" onerror="if (this.src != '../ig_images/themes/empty.png') this.src = '../ig_images/themes/empty.png';" height="80" width="80"  class="img-fluid" alt="">
+                           @* <i class="ri-store-line" style="color: #ffbb2c;"></i>*@
+                            <h3 style="margin-left:10px"><NavLink href="@($"courses/{@theme.IdTheme}#gototop")">@theme.ThemeLibelle</NavLink></h3>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
+
+@code {
+    IEnumerable<Rootobjectcatalogue> catalogues;
+
+    protected override async Task OnInitializedAsync()
+    {
+        catalogues = await CatalogueService.GetCatalogueAsync();
+        StateHasChanged();
+    }
+
+    Courses courses = new Courses();
+
+    public class Courses
+    {
+        public string ThemeID { get; set; } = "";
+    }
+}
