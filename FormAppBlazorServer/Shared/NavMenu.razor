@@ -1,0 +1,72 @@
+@inject IOptions<SiteOptions> SiteOptionsAccessor
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a class="logo me-auto" href="/" @onclick:preventDefault @onclick="GoHome">
+    <img src="@Site.MyLogoSvg" alt="@Site.MyTitle" />
+</a>
+
+<nav id="navbar" class="navbar order-last order-lg-0 @(_menuOpen ? "navbar-mobile" : null)">
+    <ul>
+        <li>
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All" @onclick="CloseMenu">Accueil</NavLink>
+        </li>
+        <li>
+            <NavLink class="nav-link" href="courses" @onclick="CloseMenu">Nos formations</NavLink>
+        </li>
+        <li>
+            <NavLink class="nav-link" href="calendrier" @onclick="CloseMenu">Calendrier</NavLink>
+        </li>
+        <li>
+            <NavLink class="nav-link" href="infos" @onclick="CloseMenu">Nous connaître</NavLink>
+        </li>
+        <li>
+            <NavLink class="nav-link" href="contact" @onclick="CloseMenu">Nous contacter</NavLink>
+        </li>
+        <li>
+            <form class="ig-search" @onsubmit="SearchCourse" @onsubmit:preventDefault>
+                <label class="visually-hidden" for="site-search">Rechercher une formation</label>
+                <input id="site-search" type="search" placeholder="Rechercher…" @bind="SearchWord" @bind:event="oninput" />
+                <button type="submit" aria-label="Rechercher"><i class="bi bi-search"></i></button>
+            </form>
+        </li>
+        <li>
+            <button type="button" class="get-started-btn" @onclick="OpenApp">Connexion</button>
+        </li>
+    </ul>
+    <button type="button" class="mobile-nav-toggle" @onclick="ToggleMenu" aria-label="Ouvrir le menu" aria-expanded="@_menuOpen">
+        <i class="bi @(_menuOpen ? "bi-x" : "bi-list")" aria-hidden="true"></i>
+    </button>
+</nav>
+
+@code {
+    private bool _menuOpen;
+    private string SearchWord = string.Empty;
+
+    private SiteOptions Site => SiteOptionsAccessor.Value;
+
+    private void ToggleMenu() => _menuOpen = !_menuOpen;
+
+    private void CloseMenu() => _menuOpen = false;
+
+    private void GoHome()
+    {
+        CloseMenu();
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void SearchCourse()
+    {
+        CloseMenu();
+        var query = SearchWord?.Trim();
+        NavigationManager.NavigateTo(string.IsNullOrEmpty(query)
+            ? "/courses"
+            : $"/coursesBySearch/{Uri.EscapeDataString(query.ToLowerInvariant())}");
+    }
+
+    private async Task OpenApp()
+    {
+        CloseMenu();
+        await JSRuntime.InvokeVoidAsync("open", Site.AppUrl, "_blank");
+    }
+}

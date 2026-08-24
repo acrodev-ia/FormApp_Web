@@ -1,96 +1,80 @@
 ﻿@page "/calendrier"
 @inject PlanningService PlanningService
 @inject IJSRuntime JSRuntime
-<!-- ======= Breadcrumbs ======= -->
-<div class="breadcrumbs" data-aos="fade-in">
-    <div class="container">
-        <h2>Calendrier</h2>
-        <p>Calendrier de nos formations à venir. </p>
-    </div>
-</div><!-- End Breadcrumbs -->
-<section id="planning" class="contact">
-    <div class="container" data-aos="fade-up" id="element-toexportpdf">
-        @if (plannings == null)
+
+<PageHero Eyebrow="Planning" Title="Calendrier" Subtitle="Sessions de formation à venir." />
+<section class="ig-section" id="planning">
+    <div class="container" id="element-toexportpdf">
+        @if (plannings is null)
         {
-            <p><em>Loading...</em></p>
+            <p>Chargement du calendrier…</p>
         }
         else
         {
             @foreach (var planning in plannings)
             {
-                @foreach (var item in planning.Themes)
+                @foreach (var item in planning.Themes ?? Array.Empty<ThemePlanning>())
                 {
-                    <h3>@item.ThemeLibelle.ToString()</h3>
-                    <table class="table table-bordered table-responsive table-striped table-responsive-sm">
-                        <thead>
-                            <tr>
-                                <th class="col-4">Formations</th>
-                                <th class="col-2">Date</th>
-                                <th class="col-1">Lieu</th>
-                                <th class="col-1">Durée</th>
-                                <th class="col-4">Infos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var stage in item.Dates)
-                            {
+                    <h3>@item.ThemeLibelle</h3>
+                    <div class="ig-table mb-4">
+                        <table class="table table-striped mb-0">
+                            <thead>
                                 <tr>
-                                    @if (string.IsNullOrEmpty(stage.Id))
-                                    {
-                                        <td>@stage.Texte</td>
-                                    }
-                                    else
-                                    {
-                                        <td><NavLink href="@($"course/{stage.Id}")" rel="noopener">@stage.Texte</NavLink></td>
-                                    }
-                                    <td>@stage.Date</td>
-                                    <td>@stage.Lieu</td>
-                                    <td>@stage.DureePrix</td>
-                                    @if (string.IsNullOrEmpty(stage.Url))
-                                    {
-                                        <td>@((MarkupString)@stage.Intitule2)</td>
-                                    }
-                                    else
-                                    {
-                                        <td>@((MarkupString)@stage.Intitule2)<br /><NavLink href="@stage.Url" rel="noopener">Financement par le CPF</NavLink></td>
-                                    }
+                                    <th>Formation</th>
+                                    <th>Date</th>
+                                    <th>Lieu</th>
+                                    <th>Durée</th>
+                                    <th>Infos</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var stage in item.Dates ?? Array.Empty<StagePlanning>())
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(stage.Id))
+                                            {
+                                                @stage.Texte
+                                            }
+                                            else
+                                            {
+                                                <NavLink href="@($"course/{stage.Id}")">@stage.Texte</NavLink>
+                                            }
+                                        </td>
+                                        <td>@stage.Date</td>
+                                        <td>@stage.Lieu</td>
+                                        <td>@stage.DureePrix</td>
+                                        <td>
+                                            @((MarkupString)(stage.Intitule2 ?? string.Empty))
+                                            @if (!string.IsNullOrEmpty(stage.Url))
+                                            {
+                                                <br />
+                                                <a href="@stage.Url" rel="noopener">Financement par le CPF</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 }
             }
         }
-        <div class="text-center">
-            <button style="outline:none; border:0" class="get-started-btn" @onclick="PrintAll">Imprimer</button>
-            <button style="outline:none; border:0" class="get-started-btn" @onclick="DownloadPDF">Télécharger</button>
+        <div class="ig-actions">
+            <button type="button" class="ig-btn ig-btn-primary" @onclick="PrintAll">Imprimer</button>
+            <button type="button" class="ig-btn ig-btn-light" @onclick="DownloadPdf">Télécharger</button>
         </div>
     </div>
 </section>
+
 @code {
-    IEnumerable<Rootobjectplanning> plannings;
+    private IReadOnlyList<Rootobjectplanning>? plannings;
 
     protected override async Task OnInitializedAsync()
     {
         plannings = await PlanningService.GetPlanningAsync();
     }
 
-    private async Task PrintAll()
-    {
-        await JSRuntime.InvokeVoidAsync("JSPrintPlanning");
-    }
-
-    private async Task DownloadPDF()
-    {
-        await JSRuntime.InvokeVoidAsync("JSGeneratePlanningPDF");
-    }
-
-    //private async Task PrintPlanning()
-    //{
-    //    await JSRuntime.InvokeVoidAsync("JSPrintPlanning");
-    //}
-    //private async Task Alert()
-    //{
-    //    await JSRuntime.InvokeVoidAsync("JSAlert");
-    //}
+    private Task PrintAll() => JSRuntime.InvokeVoidAsync("JSPrintPlanning").AsTask();
+    private Task DownloadPdf() => JSRuntime.InvokeVoidAsync("JSGeneratePlanningPDF").AsTask();
 }

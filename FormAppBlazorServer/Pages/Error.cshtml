@@ -1,42 +1,29 @@
 ﻿@page
 @model FormAppBlazorServer.Pages.ErrorModel
+@{
+    Layout = null;
+}
 
 <!DOCTYPE html>
-<html>
-
+<html lang="fr">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Error</title>
-    <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/css/app.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Erreur</title>
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/ig-theme.css" rel="stylesheet" />
 </head>
-
 <body>
-    <div class="main">
-        <div class="content px-4">
-            <h1 class="text-danger">Error.</h1>
-            <h2 class="text-danger">An error occurred while processing your request.</h2>
-
-            @if (Model.ShowRequestId)
-            {
-                <p>
-                    <strong>Request ID:</strong> <code>@Model.RequestId</code>
-                </p>
-            }
-
-            <h3>Development Mode</h3>
+    <main class="container py-5">
+        <h1>Une erreur s’est produite.</h1>
+        <p>La requête n’a pas pu aboutir. Vous pouvez revenir à l’accueil et réessayer.</p>
+        @if (Model.ShowRequestId)
+        {
             <p>
-                Swapping to the <strong>Development</strong> environment displays detailed information about the error that occurred.
+                <strong>Identifiant de la requête :</strong> <code>@Model.RequestId</code>
             </p>
-            <p>
-                <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-                It can result in displaying sensitive information from exceptions to end users.
-                For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-                and restarting the app.
-            </p>
-        </div>
-    </div>
+        }
+        <p><a href="/">Retour à l’accueil</a></p>
+    </main>
 </body>
-
 </html>

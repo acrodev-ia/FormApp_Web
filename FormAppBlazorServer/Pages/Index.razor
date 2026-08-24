@@ -1,359 +1,160 @@
 ﻿@page "/"
-@page "/index"
-@inject IJSRuntime JSRuntime
-@inject IConfiguration Configuration
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex justify-content-center align-items-center">
-    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
-        <h1>@Configuration.GetSection("MyApplicationConfiguration")["MyTitle"]<br>Donnons un sens à la formation</h1>
-        <h2>Gérer des actions de formations constitue le cœur de notre métier depuis 2006</h2>
-        @*        <a href="calendrier" class="btn-get-started">Calendrier</a>*@
+@inject IOptions<SiteOptions> SiteOptionsAccessor
+
+<section class="ig-hero">
+    <div class="container">
+        <p class="ig-eyebrow">Organisme de formation · Lot</p>
+        <h1>@Site.MyTitle</h1>
+        <p class="lead">Donnons un sens à la formation. Depuis 2006, nous concevons et animons des actions de formation pour les entreprises, les collectivités et les salariés.</p>
+        <div class="ig-hero-actions">
+            <a class="ig-btn ig-btn-primary" href="courses">Voir le catalogue</a>
+            <a class="ig-btn ig-btn-ghost" href="calendrier">Calendrier des sessions</a>
+        </div>
     </div>
 </section>
-<!-- ======= About Section ======= -->
-@*<section id="about" class="about">
-    <div class="container" data-aos="fade-up">
 
-    <div class="row">
-    <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-    <img src="@Configuration.GetSection("MyApplicationConfiguration")["MyAboutImg"]" class="img-fluid" alt="">
-    </div>
-    <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-    <h3>Présentation</h3>
-    <p class="fst-italic">
-    Nous organisons plus de <b>700 stages</b> par an pour des clients de tous secteurs d'activité.
-    </p>
-    <ul>
-    <li><i class="bi bi-check-circle"></i> pour accompagner les structures dans leurs évolutions.</li>
-    <li><i class="bi bi-check-circle"></i> pour permettre aux stagiaires de développer leurs compétences et d'enrichir leur parcours tout au long de leur vie professionnelle.</li>
-    </ul>
-    <p>
-    Ils se déroulent :
-    </p>
-    <ul>
-    <li><i class="bi bi-check-circle"></i> soit des actions « catalogue » inter-entreprises, avec des calendriers pré-établis (environ 40% de notre activité).</li>
-    <li><i class="bi bi-check-circle"></i> soit des actions sur mesure, lorsque nos clients souhaitent constituer des groupes ou réaliser une action avec un cahier des charges précis.</li>
-    </ul>
-
-    </div>
-    </div>
-    </div>
-    </section>*@
-<!--End About Section -->
-<!--    ======= Counts Section ======= -->
-<section id="counts" class="counts section-bg">
+<section class="ig-section ig-stats">
     <div class="container">
-        <h3>Quelques chiffres clés en 2025</h3>
-        <div class="row counters">
-
-            <div class="col-lg-3 col-6 text-center">
-                <span data-purecounter-start="0" data-purecounter-end="437" data-purecounter-duration="1"
-                      class="purecounter"></span>
-                <p>Clients actifs</p>
+        <div class="row g-3">
+            <div class="col-6 col-lg-3">
+                <div class="ig-stat-card">
+                    <strong>437</strong>
+                    <span>Clients actifs</span>
+                </div>
             </div>
-
-            <div class="col-lg-3 col-6 text-center">
-                <span data-purecounter-start="0" data-purecounter-end="4861" data-purecounter-duration="1"
-                      class="purecounter"></span>
-                <p>Personnes formées</p>
+            <div class="col-6 col-lg-3">
+                <div class="ig-stat-card">
+                    <strong>4 861</strong>
+                    <span>Personnes formées</span>
+                </div>
             </div>
-
-            <div class="col-lg-3 col-6 text-center">
-                <span data-purecounter-start="0" data-purecounter-end="54718" data-purecounter-duration="1"
-                      class="purecounter"></span>
-                <p>Heures de formations</p>
+            <div class="col-6 col-lg-3">
+                <div class="ig-stat-card">
+                    <strong>54 718</strong>
+                    <span>Heures de formation</span>
+                </div>
             </div>
+            <div class="col-6 col-lg-3">
+                <div class="ig-stat-card">
+                    <strong>966</strong>
+                    <span>Stages réalisés</span>
+                </div>
+            </div>
+        </div>
+        <p class="text-muted mt-3 mb-0">Chiffres 2025 · 99,98 % de stagiaires satisfaits ou très satisfaits</p>
+    </div>
+</section>
 
-            <div class="col-lg-3 col-6 text-center">
-                <span data-purecounter-start="0" data-purecounter-end="966" data-purecounter-duration="1"
-                      class="purecounter"></span>
-                <p>Stages réalisés</p>
+<section class="ig-section pt-0">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <p class="ig-kicker">Pourquoi IG Formation</p>
+                <h2>Une ingénierie pédagogique tournée vers vos besoins</h2>
+                <p>Nous plaçons votre contexte avant nos solutions : plus de 30 ans d’expérience, 70 formateurs issus de l’entreprise, et 100 % de réalisation de nos actions de formation.</p>
+                <ul class="ig-why-list">
+                    <li><i class="bi bi-check-circle"></i><span>Catalogue inter-entreprises et actions sur-mesure.</span></li>
+                    <li><i class="bi bi-check-circle"></i><span>Centre à Fontanes, près de Cahors, avec 4 salles équipées.</span></li>
+                    <li><i class="bi bi-check-circle"></i><span>Certifications et habilitations reconnues (Qualiopi, INRS, AIPR, TOSA…).</span></li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <img src="ig_images/locaux01.jpg" class="img-fluid rounded-4 shadow-sm" alt="Centre de formation IG Formation à Fontanes" />
             </div>
         </div>
     </div>
 </section>
-<!--End Counts Section -->
-<!-- ======= Why Us Section ======= -->
-@*<section id="why-us" class="why-us">
-    <div class="container" data-aos="fade-up">
 
-    <div class="row">
-    <div class="col-lg-4 d-flex align-items-stretch">
-    <div class="content">
-    <h3>Pourquoi choisir @Configuration.GetSection("MyApplicationConfiguration")["MyTitle"] ?</h3>
-    <p>
-    Notre professionnalisme est reconnu et conforté par :
-    </p>
-    <ul>
-    <li> les <b>nombreuses labellisations de vos O.P.C.O</b>,</li>
-    <li> les <b>agréments du préfet de la région Occitanie</b> pour les formations des membres du CSE,</li>
-    <li> les habilitations <b>I.N.R.S</b> (S.S.T / PRAP).</li>
-    </ul>
-    <div class="text-center">
-    <a href="infos#agrements" class="more-btn">Nos agréments<i class="bx bx-chevron-right"></i></a>
-    </div>
-    </div>
-    </div>
-    <div class="col-lg-8 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-    <div class="icon-boxes d-flex flex-column justify-content-center">
-    <div class="row">
-    <div class="col-xl-4 d-flex align-items-stretch">
-    <div class="icon-box mt-4 mt-xl-0">
-    <i class="bx bx-receipt"></i>
-    <h4>QUALIOPI</h4>
-    <p>a été évalué et jugé conforme aux exigences requises par le décret n°2019-564 du 6 juin 2019.</p>
-    </div>
-    </div>
-    <div class="col-xl-4 d-flex align-items-stretch">
-    <div class="icon-box mt-4 mt-xl-0">
-    <i class="bx bx-cube-alt"></i>
-    <h4>DIRECTTE</h4>
-    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-    </div>
-    </div>
-    <div class="col-xl-4 d-flex align-items-stretch">
-    <div class="icon-box mt-4 mt-xl-0">
-    <i class="bx bx-images"></i>
-    <h4>INRS</h4>
-    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-    </div>
-    </div>
-    </div>
-    </div>
-    <!--End .content -->
-    </div>
-    </div>
-
-    </div>
-    </section>*@
-<!-- End Why Us Sectio n-->
-@*<!-- ======= Features Section ======= -->
-    <section id="features" class="features">
-    <ThemesList></ThemesList>
-    </section>*@
-<!-- ======= Trainers Section ======= -->
-@*<section id="trainers" class="trainers">
-    <div class="container" data-aos="fade-up">
-    <Planning></Planning>
-    </div>
-    </section>*@
-<!-- ======= Breadcrumbs POURQUOI SE FORMER CHEZ IG FORMATION ? ======= -->
-
-<div class="breadcrumbs">
+<section class="ig-section pt-0">
     <div class="container">
-        <h2>POURQUOI SE FORMER CHEZ IG FORMATION ?</h2>
-    </div>
-</div><!-- End Breadcrumbs POURQUOI SE FORMER CHEZ IG FORMATION ? -->
-<div class="container" data-aos="fade-up">
-    <div style="width:90%;padding-left:30px;padding-top:10px">
-        <table>
-            <tr>
-                <td>
-                    <h3>Statistiques 2025 : 99.98 % de stagiaires satisfaits ou très satisfaits !</h3>
-                    <p>Nous pourrions aussi vous détailler les raisons principales que vous avez de travailler avec nous :</p>
-                    <ul>
-                        <li>Notre ingénierie pédagogique, qui place vos besoins avant nos solutions,</li>
-                        <li>Plus de 30 ans d’expérience dans la formation professionnelle,</li>
-                        <li>Nos 70 formateurs, choisis pour leur expertise métier et issus du monde de l’entreprise,</li>
-                        <li>Les 54 718 heures stagiaires que nous dispensons chaque année,</li>
-                        <li>La fiabilité de notre offre avec 100% de réalisation de nos actions de formations.</li>
-                    </ul>
-                    <h3 style="text-align:center">Mais le mieux, c’est encore de vous encourager à le vivre….</h3>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<!-- ======= Breadcrumbs NOS CERTIFICATIONS ET LABELS ======= -->
-
-<div class="breadcrumbs" data-aos="fade-in">
-    <div class="container">
-        <h2 id="agrements">NOS CERTIFICATIONS ET LABELS</h2>
-    </div>
-</div><!-- End Breadcrumbs NOS CERTIFICATIONS ET LABELS -->
-
-<div class="container" data-aos="fade-up">
-    <section id="trainers" class="trainers">
-        <div class="row" data-aos="zoom-in" data-aos-delay="100">
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <a href="../ig_files/qualiopi.pdf" target="_blank" rel="noopener"><img src="../ig_images/qualiopi.jpg" class="img-fluid" alt="" style="margin-top:5px"></a>
+        <p class="ig-kicker">Garanties</p>
+        <h2 class="mb-4">Certifications et labels</h2>
+        <div class="row g-4 ig-cert-grid">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <a href="../ig_files/qualiopi.pdf" target="_blank" rel="noopener"><img src="ig_images/qualiopi.jpg" alt="Certification Qualiopi" /></a>
                     <div class="member-content">
-                        <h4>QUALIOPI</h4>
-                        <p>
-                            Certification QUALIOPI délivrée par AFNOR CERTIFICATION. Cette certification nationale atteste de la qualité des processus mis en œuvre au titre des actions de formation.
-                        </p>
+                        <h3>Qualiopi</h3>
+                        <p>Certification nationale de la qualité des processus mis en œuvre au titre des actions de formation, délivrée par AFNOR Certification.</p>
                     </div>
-                </div>
+                </article>
             </div>
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/aipr.png" class="img-fluid" alt="" style="margin-top:5px">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/aipr.png" alt="Agréments AIPR" />
                     <div class="member-content">
-                        <h4>AIPR</h4>
-                        <p>
-                            IG FORMATION est agrée centre d'examen AIPR depuis 2017 (centre n° 258) par le ministère de la transition écologique et solidaire.
-                        </p>
+                        <h3>AIPR</h3>
+                        <p>Centre d’examen AIPR n° 258, agréé par le ministère de la Transition écologique depuis 2017.</p>
                     </div>
-                </div>
+                </article>
             </div>
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/LogoCert003.png" class="img-fluid" alt="" style="margin-top:5px">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/LogoCert003.png" alt="Habilitation SST" />
                     <div class="member-content">
-                        <h4>SST</h4>
-                        <p>
-                            IG FORMATION est habilité à dispenser des formations d’acteurs SST depuis 2006 par l’INRS.
-                        </p>
+                        <h3>SST</h3>
+                        <p>Habilité par l’INRS à dispenser des formations d’acteurs SST depuis 2006.</p>
                     </div>
-                </div>
+                </article>
             </div>
-        @*    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/logoprap.png" class="img-fluid" alt="">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/logoreferentiel.jpg" alt="Référentiel échafaudage de pied" />
                     <div class="member-content">
-                        <h4>PRAP IBC</h4>
-                        <p>
-                            IG FORMATION est habilité à dispenser des formations d’acteurs PRAP IBC depuis 2017 par l’INRS.
-                        </p>
+                        <h3>Échafaudage de pied (R 408)</h3>
+                        <p>Habilité par l’INRS à former des acteurs échafaudage de pied depuis 2021.</p>
                     </div>
-                </div>
-            </div>*@
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/logoreferentiel.jpg" class="img-fluid" alt="" style="margin-top:5px">
-                    <div class="member-content">
-                        <h4>ECHAFAUDAGE DE PIED (R 408)</h4>
-                        <p>
-                            IG FORMATION est habilité à dispenser des formations d’acteurs ECHAFAUDAGE DE PIED (R 408) depuis 2021 par l’INRS.
-                        </p>
-                    </div>
-                </div>
+                </article>
             </div>
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/logoreferentiel.jpg" class="img-fluid" alt="" style="margin-top:5px">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/logoreferentiel.jpg" alt="Référentiel échafaudage roulant" />
                     <div class="member-content">
-                        <h4>ECHAFAUDAGE ROULANT (R 457)</h4>
-                        <p>
-                            IG FORMATION est habilité à dispenser des formations d’acteurs ECHAFAUDAGE ROULANT (R 457) depuis 2021 par l’INRS.
-                        </p>
+                        <h3>Échafaudage roulant (R 457)</h3>
+                        <p>Habilité par l’INRS à former des acteurs échafaudage roulant depuis 2021.</p>
                     </div>
-                </div>
+                </article>
             </div>
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/logotosa1.png" class="img-fluid" alt="" style="margin-top:5px">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/logotosa1.png" alt="Centre agréé TOSA" />
                     <div class="member-content">
-                        <h4>Compétences informatiques</h4>
-                        <p>
-                            Centre agrée TOSA® by ISOGRAD depuis 2016 pour les compétences informatiques
-                            Le TOSA® (Test on Software Applications) est un outil qui permet d'évaluer et de certifier les compétences bureautiques, de débutant à expert.
-                        </p>
+                        <h3>Compétences informatiques</h3>
+                        <p>Centre agréé TOSA® by ISOGRAD depuis 2016 pour l’évaluation et la certification des compétences bureautiques.</p>
                     </div>
-                </div>
+                </article>
             </div>
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/logocse.png" class="img-fluid" alt="" style="margin-top:5px">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/logocse.png" alt="Agréments CSE" />
                     <div class="member-content">
-                        <h4>CSE</h4>
-                        <p>
-                            IG FORMATION est agrée pour dispenser les formations obligatoires aux membres de la délégation du CSE (Volet Santé Sécurité et Conditions de travail & Volet économique) par la DREETS OCCITANIE
-                        </p>
+                        <h3>CSE</h3>
+                        <p>Agréé par la DREETS Occitanie pour les formations obligatoires des membres du CSE, volets santé-sécurité et économique.</p>
                     </div>
-                </div>
+                </article>
             </div>
-         @*   <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/logolinguaskill.png" class="img-fluid" alt="">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/logobright.png" alt="Bright Language" />
                     <div class="member-content">
-                        <h4>LINGUASKILL</h4>
-                        <p>
-                            IG FORMATION est Centre de passation officiel LINGUASKILL (anglais) - Cambridge center depuis 2016
-                        </p>
+                        <h3>Bright Language</h3>
+                        <p>Agent de certification Bright Language depuis 2017.</p>
                     </div>
-                </div>
-            </div>*@
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/logobright.png" class="img-fluid" alt="" style="margin-top:5px">
-                    <div class="member-content">
-                        <h4>BRIGHT LANGUAGE</h4>
-                        <p>
-                            IG FORMATION est agent de certification BRIGHT LANGUAGE depuis 2017
-                        </p>
-                    </div>
-                </div>
+                </article>
             </div>
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="member">
-                    <img src="../ig_images/dialoguesocial.png" class="img-fluid" alt="" style="margin-top:5px">
+            <div class="col-lg-4 col-md-6">
+                <article class="member">
+                    <img src="ig_images/dialoguesocial.png" alt="Dialogue social" />
                     <div class="member-content">
-                        <h4>DIALOGUE SOCIAL</h4>
-                        <p>
-                            IG FORMATION est référencé au titre des formations communes au « Dialogue Social » par Institut National du Travail, de l’Emploi et de la Formation Professionnelle
-                        </p>
+                        <h3>Dialogue social</h3>
+                        <p>Référencé par l’INTEFP au titre des formations communes au dialogue social.</p>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
-        <div class="container" data-aos="fade-up">
-            <div style="width:90%;padding-left:30px;padding-top:10px">
-                <table>
-                    <tr>
-                        <td>
-                            <h3>2025 en quelques chiffres :</h3>
-                            <ul>
-                                <li>
-                                    Taux de stagiaires <b>satisfaits ou très satisfaits</b> : 99,98 % sur l'ensemble de nos prestations
-                                    <ul>
-                                        <li>Management & communication : 100 % de satisfait ou très satisfait sur 344 stagiaires</li>
-                                        <li>Efficacité personnelle : 100 % de satisfait ou très satisfait sur 38 stagiaires</li>
-                                        <li>Habilitation électrique : 100 % de satisfait ou très satisfait sur 517 stagiaires</li>
-                                        <li>Conduite en sécurité des engins : 100 % de satisfait ou très satisfait sur 1 333 stagiaires</li>
-                                        <li>Travail en hauteur : 100 % de satisfait ou très satisfait sur 264 stagiaires</li>
-                                        <li>Echafaudage : 100 % de satisfait ou très satisfait sur 93 stagiaires</li>
-                                        <li>AIPR : 100 % de satisfait ou très satisfait sur 94 stagiaires</li>
-                                        <li>SST : 100 % de satisfait ou très satisfait sur 584 candidats</li>
-                                        <li>Bureautique : 100 % de satisfait ou très satisfait sur les 217 stagiaires</li>
-                                        <li>CSE Volet sécurité : 97.9 % de satisfait ou très satisfait sur 155 candidats</li>
-                                    </ul>
-                                </li>
-                                <li>Taux de réussite aux tests <b>AIPR</b> : 100 % (94 candidats présentés)</li>
-                                <li>Taux de réussite aux tests <b>CACES R 489</b> : 100 % (94 candidats présentés)</li>
-                                <li>Taux de réussite aux <b>CACES R 486</b> : 100 % (98 candidats présentés)</li>
-                                <li>Taux de réussite <b>SST</b> : 100 % (224 candidats présentés en formation initiale et 360 candidats présentés en Maintien et actualisation des compétences)</li>
-                                <li>Taux de réussite <b>R408</b> : 100 % (39 candidats présentés)</li>
-                                <li>Taux de réussite en <b>Habilitations électriques</b> : 100 % (162 candidats présentés en formation initiale et 355 candidats en recyclage)</li>
-                            </ul>
+    </div>
+</section>
 
-                            <p>Nombre de candidats présentés aux certifications :</p>
-                            <ul>
-                                <li><b>Bright</b> – Anglais : <b>22 candidats présentés</b></li>
-                                <li><b>TOSA : 12 candidats présentés</b> sur l’ensemble des logiciels.</li>
-                            </ul>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </section><!-- End Trainers Section -->
-</div>
-
-<!--End Trainers Section -->
 @code {
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        // Pb rencontré sur l'affichage du compteur
-        // https://github.com/dotnet/aspnetcore/issues/22908
-        // https://stackoverflow.com/questions/62379202/why-cant-i-load-any-js-after-my-blazor-server-js
-        // On décale ici import du js après
-        if (firstRender)
-        {
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/vendor/purecounter/purecounter.js");
-        }
-    }
+    private SiteOptions Site => SiteOptionsAccessor.Value;
 }
